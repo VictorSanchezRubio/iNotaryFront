@@ -259,6 +259,7 @@ _toolTipNIF = "Valores con escacio --> Busca por cualquier de los valores; Valor
 
   }
 
+  
   loadInit(): void {
 
     let tablas = ({
@@ -274,9 +275,6 @@ _toolTipNIF = "Valores con escacio --> Busca por cualquier de los valores; Valor
     this.services.getData(tablas).subscribe(data => {
       data.detail.forEach((values: any, index: any) => {
         this._notarios.push({ value: values["CODIGONOTARIO"], viewValue: values["NOMBRENOTARIO"] });
-
-console.log(values["NOMBRENOTARIO"]);
-
         this.dbService.getByIndex("opcionesusuario", "opc_CODIGO", "NOTARIO").subscribe((valuesTable) => {
           this._notario = valuesTable["opc_VALOR"];
           this._notarioDef = valuesTable["opc_VALOR"];
