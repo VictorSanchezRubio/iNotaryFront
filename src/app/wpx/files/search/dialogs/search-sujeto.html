@@ -1,0 +1,13 @@
+<h1>Búsquedar Sujetos</h1>
+
+<div style="width:800px; height: 650px;">
+
+<app-sujetos [DNI]="data.text" (okSujeto)="aceptarSujeto($event)"></app-sujetos> <!---->
+
+</div>
+
+<mat-dialog-actions align="end">
+   <!--<button mat-raised-button [mat-dialog-close]="data" cdkFocusInitial color="primary">Aceptar</button>-->
+    <button mat-raised-button (click)="onCancel()" color="warn">Salir</button>
+     <!--<button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>-->
+</mat-dialog-actions>

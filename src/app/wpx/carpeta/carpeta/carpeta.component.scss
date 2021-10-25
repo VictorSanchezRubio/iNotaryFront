@@ -1,0 +1,47 @@
+.divButtons {
+    height: 4em;
+    width: 98%;
+    justify-content: center;
+    align-content: center;
+   // background-color: red;
+    margin: 5px 15px;
+}
+
+.divPrincipalScreen {
+    height: 55em;
+    width: 98%;
+   // background-color: green;
+    margin: 5px 15px;
+    overflow:auto;
+}
+
+.divSubScreen {
+    height: 54em;
+    width: 49.8%;
+   // background-color: green;
+    margin: 2px 1px;
+    overflow:auto;
+    float:left;
+}
+
+.marginDiv {
+    margin: 0 10px;
+  }
+
+
+.large-box{
+    width: 99%;
+    height: 49em;
+    margin: 5px 5px;
+ //   background-color: green;
+
+}
+
+
+.large-box-esp{
+    width: 99%;
+  //  height: 100em;
+    margin: 5px 5px;
+ //   background-color: green;
+
+}

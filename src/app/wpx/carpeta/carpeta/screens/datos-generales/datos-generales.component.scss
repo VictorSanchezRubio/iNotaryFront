@@ -1,0 +1,14 @@
+.colorInput {
+    color: #0275d8;
+  //  font-weight:bold;
+    font-size: 16px;
+}
+
+
+input:-moz-read-only {
+    color: rgb(224, 134, 134);
+}
+
+input:read-only {
+    color: rgb(224, 134, 134);
+}

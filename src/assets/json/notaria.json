@@ -1,0 +1,9 @@
+[
+    {
+        "Name": "Notaría Demo",
+        "GeneralTitle": "iNotary by Wordplex",
+        "api": "http://inotaryapi8.local:8288",
+        "apiProd": "http://inotaryapi8.local:8288"
+
+    }
+]

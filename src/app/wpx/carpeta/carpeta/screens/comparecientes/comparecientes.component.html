@@ -1,0 +1,247 @@
+<div class="container" style="margin-top: 0.5em;">
+
+  <table style="width: 99%;">
+
+    <tr>
+
+      <td style="width: 40%;margin-top: 1em;">
+
+        <div style="width: 99%;">
+
+          <div style="width: 95%; margin-top: 0.5em;" class="mat-elevation-z4">
+
+            <table style="width: 100%;">
+
+              <tr>
+
+                <td style="width: 33%;">
+
+
+                  <button mat-raised-button (click)="isNew= !isNew;" color="primary" *ngIf="isNew">
+                    <!-- <mat-icon svgIcon="addUser" aria-hidden="false"></mat-icon> -->
+                    Nuevo
+                  </button>
+
+
+                </td>
+
+                <td style="width: 33%;">
+
+                  <button mat-raised-button (click)="onAceptarSujeto();" color="green" *ngIf="!isNew">
+                    <!--  <mat-icon svgIcon="check" aria-hidden="false"></mat-icon> -->
+                    Aceptar
+                  </button>
+
+                </td>
+
+
+                <td style="width: 33%;">
+
+                  <button mat-raised-button (click)="borrarValores();isNew= !isNew" color="warn" *ngIf="!isNew">
+                    <!--  <mat-icon svgIcon="close" aria-hidden="false"></mat-icon> -->
+                    Anular
+                  </button>
+
+
+                </td>
+
+
+
+              </tr>
+
+
+            </table>
+
+
+
+
+          </div>
+
+
+
+          <div cdkDropList [cdkDropListData]="comparecientes" (cdkDropListDropped)="onDrop($event)"
+            class="mat-elevation-z4" style="overflow: auto; height: 600px; margin-top: 0.5em;">
+
+            <div class="example-box" cdkDrag *ngFor="let compareciente of comparecientes">
+              <!-- cdkDragLockAxis="x" -->
+              {{compareciente}}
+
+              <div class="example-handle" cdkDragHandle>
+                <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
+                  </path>
+                  <path d="M0 0h24v24H0z" fill="none"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </td>
+
+
+
+      <td style="width: 60%; margin-top: 0.5em;">
+
+        <div style="width: 100%; overflow: auto; height: 600px;" class="mat-elevation-z4" *ngIf="isNew===false">
+
+
+          <mat-form-field appearance="fill" class="margin-search">
+            <mat-label>Tipo de Identificación</mat-label>
+            <mat-select [(ngModel)]='sujetos_TIPOIDE'>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let auxSelect of _sujetos_TIPOIDE" [value]="auxSelect.value">
+                    {{auxSelect.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em; width: 20%;" class="specialText">
+            <mat-label class="colorInput">DNI/NIF</mat-label>
+            <input matInput [(ngModel)]="DNI">
+          </mat-form-field>
+
+          <button mat-raised-button (click)="search()" style="margin-left: 5em; margin-top: -2em;" class="buttonSearch">
+            <mat-icon class="blue-esp1-icon">search</mat-icon>
+          </button>
+
+
+          <br class="spaceBr">
+
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em;" class="specialText">
+            <mat-label class="colorInput">Nombre</mat-label>
+            <input matInput [(ngModel)]="comparecientes_NOMBRE">
+          </mat-form-field>
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em;" class="specialText">
+            <mat-label class="colorInput">Prinmer Apellido / Razón Social</mat-label>
+            <input matInput [(ngModel)]="comparecientes_PRIMERAPELLIDO">
+          </mat-form-field>
+
+          <br class="spaceBr">
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em;" class="specialText">
+            <mat-label class="colorInput">Segundo Apellido</mat-label>
+            <input matInput [(ngModel)]="comparecientes_SEGUNDOAPELLIDO">
+          </mat-form-field>
+
+
+          <br class="spaceBr">
+
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em; width: 15%;" class="specialText">
+            <mat-label class="colorInput">Reg. Económico</mat-label>
+            <input matInput [(ngModel)]="comparecientes_REGIMENECONOMICO">
+          </mat-form-field>
+
+          <button mat-raised-button (click)='searchGlobal("REGIMENECONOMICO", "Régimen Económico")' style="margin-left: 0.5em; margin-top: -2em;" class="buttonSearch">
+            <mat-icon class="blue-esp1-icon">search</mat-icon>
+          </button>
+
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em; width: 15%;" class="specialText">
+            <mat-label class="colorInput">Sexo</mat-label>
+            <input matInput [(ngModel)]="SEXO">
+          </mat-form-field>
+
+          <button mat-raised-button (click)='searchGlobal("SEXO", "Sexo")' style="margin-left: 0.5em; margin-top: -2em;" class="buttonSearch">
+            <mat-icon class="blue-esp1-icon">search</mat-icon>
+          </button>
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em; width: 15%;" class="specialText">
+            <mat-label class="colorInput">E. Civil</mat-label>
+            <input matInput [(ngModel)]="ESTADOCIVIL">
+          </mat-form-field>
+          
+          <button mat-raised-button (click)='searchGlobal("ESTADOCIVIL", "Estado Civil")' style="margin-left: 0.5em; margin-top: -2em;" class="buttonSearch">
+            <mat-icon class="blue-esp1-icon">search</mat-icon>
+          </button>
+
+
+          <br class="spaceBr">
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em; width: 20%;" class="specialText">
+            <mat-label class="colorInput">Fax</mat-label>
+            <input matInput [(ngModel)]="FAX">
+          </mat-form-field>
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em; width: 20%;" class="specialText">
+            <mat-label class="colorInput">Teléfono</mat-label>
+            <input matInput [(ngModel)]="TELEFONO">
+          </mat-form-field>
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em; width: 20%;" class="specialText">
+            <mat-label class="colorInput">Tel. Móvil</mat-label>
+            <input matInput [(ngModel)]="sujetos_MOVIL">
+          </mat-form-field>
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em; width: 20%;" class="specialText">
+            <mat-label class="colorInput">e-mail</mat-label>
+            <input matInput [(ngModel)]="EMAIL">
+          </mat-form-field>
+
+          <br class="spaceBr">
+
+          <mat-label style="color: brown; margin-left: 1em;"><strong>Dirección (Formato INTI)</strong></mat-label>
+
+
+
+          <br class="spaceBr">
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em; width: 15%;" class="specialText">
+            <mat-label class="colorInput">Via</mat-label>
+            <input matInput [(ngModel)]="VIA">
+          </mat-form-field>
+
+          <button mat-raised-button (click)="search()" style="margin-left: 0.5em; margin-top: -2em;" class="buttonSearch">
+            <mat-icon class="blue-esp1-icon">search</mat-icon>
+          </button>
+
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em; width: 40%;" class="specialText">
+            <mat-label class="colorInput">Nombre Vía</mat-label>
+            <input matInput [(ngModel)]="DOMICILIO">
+          </mat-form-field>
+
+          <mat-form-field style="margin-left: 1em; margin-top: 0.5em; width: 10%;" class="specialText">
+            <mat-label class="colorInput">Número</mat-label>
+            <input matInput [(ngModel)]="NUMERO">
+          </mat-form-field>
+
+          <mat-checkbox [(ngModel)]="BIS" class="margin-search" [color]="_color">
+            <mat-label>Bis</mat-label>
+        </mat-checkbox>
+          <!--
+          <mat-form-field style="margin-left: 0.5em; width: 7em;">
+            <mat-label class="colorInput">Nombre</mat-label>
+
+            <input matInput [(ngModel)]="_compareciente.comparecientes_NOMBRE"
+                >
+               
+        </mat-form-field>
+ -->
+
+
+
+        </div>
+
+
+
+      </td>
+
+
+
+
+
+    </tr>
+
+
+  </table>
+
+
+</div>

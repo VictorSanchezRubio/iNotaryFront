@@ -1,0 +1,86 @@
+<!--<cdk-accordion class="clases-accordion" style="margin-left: 0.5em; margin-top: 0.5em;">-->
+<div class="clases-accordion" style="margin-left: 0.5em; margin-top: 0.5em;">
+
+    <cdk-accordion-item *ngIf="item.fieldConcepto.indunico_CLASE1!=''" #accordionItemC1="cdkAccordionItem"
+        class="clases-accordion-item" role="button" tabindex="0" [attr.id]="'clase-1-accordion-header-' + item.id"
+        [attr.aria-expanded]="accordionItemC1.expanded" [attr.aria-controls]="'clase-1-accordion-body-' + item.id">
+
+        <div class="clases-accordion-item-header">
+            <mat-label (click)="accordionItemC1.toggle()" style="width: 700px;">
+                <mat-icon class="blue-icon">perm_identity</mat-icon>
+                {{ item.fieldConcepto.indunico_CLASE1 }} - [Num. Minim: {{item.fieldConcepto.paramacto_C1_NUMMIN}}]
+            </mat-label>
+
+        </div>
+
+        <div class="clases-accordion-item-body" role="region" [style.display]="accordionItemC1.expanded ? '' : 'none'"
+            [attr.id]="'clase-1-body-' + item.id" [attr.aria-labelledby]="'clase-1-header-' + item.id"
+            
+            cdkDropList [cdkDropListData]="comparecientesClase1"
+            (cdkDropListDropped)="onDrop($event)"
+            
+            > <!--  [cdkDropListConnectedTo]="list-1"  -->
+            <div class="movie-block" *ngFor="let comparecienteC1 of comparecientesClase1" cdkDrag>{{comparecienteC1}}</div>
+
+        </div>
+
+    </cdk-accordion-item>
+
+    <cdk-accordion-item *ngIf="item.fieldConcepto.indunico_CLASE2!=''" #accordionItemC2="cdkAccordionItem"
+        class="clases-accordion-item" role="button" tabindex="0" [attr.id]="'clase-2-accordion-header-' + item.id"
+        [attr.aria-expanded]="accordionItemC2.expanded" [attr.aria-controls]="'clase-2-accordion-body-' + item.id">
+
+        <div class="clases-accordion-item-header">
+            <mat-label (click)="accordionItemC2.toggle()" style="width: 700px;">
+                <mat-icon class="blue-icon">perm_identity</mat-icon>
+                {{ item.fieldConcepto.indunico_CLASE2 }} - [Num. Minim: {{item.fieldConcepto.paramacto_C2_NUMMIN}}]
+
+            </mat-label>
+        </div>
+
+        <div class="clases-accordion-item-body" role="region" [style.display]="accordionItemC2.expanded ? '' : 'none'"
+            [attr.id]="'clase-2-body-' + item.id" [attr.aria-labelledby]="'clase-2-header-' + item.id"
+            
+            cdkDropList [cdkDropListData]="comparecientesClase2"
+            (cdkDropListDropped)="onDrop($event)"
+            
+            >
+
+            <div class="movie-block" *ngFor="let comparecienteC1 of comparecientesClase2" cdkDrag>{{comparecienteC1}}</div>
+        </div>
+    </cdk-accordion-item>
+
+    <cdk-accordion-item *ngIf="item.fieldConcepto.indunico_CLASE3!=''" #accordionItemC3="cdkAccordionItem"
+        class="clases-accordion-item" role="button" tabindex="0" [attr.id]="'clase-3-accordion-header-' + item.id"
+        [attr.aria-expanded]="accordionItemC3.expanded" [attr.aria-controls]="'clase-3-accordion-body-' + item.id">
+
+        <div class="clases-accordion-item-header">
+            <mat-label (click)="accordionItemC3.toggle()" style="width: 700px;">
+                <mat-icon class="blue-icon">perm_identity</mat-icon>
+                {{ item.fieldConcepto.indunico_CLASE3 }} - [Num. Minim: {{item.fieldConcepto.paramacto_C3_NUMMIN}}]
+            </mat-label>
+        </div>
+
+        <div class="clases-accordion-item-body" role="region" [style.display]="accordionItemC3.expanded ? '' : 'none'"
+            [attr.id]="'clase-3-body-' + item.id" [attr.aria-labelledby]="'clase-3-header-' + item.id">
+        </div>
+    </cdk-accordion-item>
+
+    <cdk-accordion-item *ngIf="item.fieldConcepto.indunico_CLASE4!=''" #accordionItemC4="cdkAccordionItem"
+        class="clases-accordion-item" role="button" tabindex="0" [attr.id]="'clase-4-accordion-header-' + item.id"
+        [attr.aria-expanded]="accordionItemC4.expanded" [attr.aria-controls]="'clase-4-accordion-body-' + item.id">
+
+        <div class="clases-accordion-item-header">
+            <mat-label (click)="accordionItemC4.toggle()" style="width: 700px;">
+                <mat-icon class="blue-icon">perm_identity</mat-icon>
+                {{ item.fieldConcepto.indunico_CLASE4 }} - [Num. Minim: {{item.fieldConcepto.paramacto_C4_NUMMIN}}]
+            </mat-label>
+        </div>
+
+        <div class="clases-accordion-item-body" role="region" [style.display]="accordionItemC4.expanded ? '' : 'none'"
+            [attr.id]="'clase-4-body-' + item.id" [attr.aria-labelledby]="'clase-4-header-' + item.id">
+        </div>
+    </cdk-accordion-item>
+
+</div>
+<!--</cdk-accordion>-->

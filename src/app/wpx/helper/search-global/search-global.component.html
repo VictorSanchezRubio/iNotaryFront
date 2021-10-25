@@ -1,0 +1,39 @@
+<mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filtro" #input>
+</mat-form-field>
+
+<div *ngIf="_searchStandard && totalCon != 0"
+    style="width: 95%; margin-top: 0em; margin-left: 1em; float: none; clear: both; height: 540px; overflow: auto;">
+
+    <table mat-table [dataSource]="_searchStandard" matSort class="mat-elevation-z8" style="width: 100%;">
+        <!-- matSortDisableClear matSortDirection="asc"-->
+
+        <ng-container matColumnDef="CODIGO">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%;">Código</th>
+            <td mat-cell *matCellDef="let element" class="action-link">
+
+                <button mat-raised-button color="primary" cdkFocusInitial (click)="confirm(element)"
+                    color="primary">
+                    {{element.CODIGO}} 
+                </button>
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="DESCRIPCION">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 80%;">Descripción</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.DESCRIPCION}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="_displayStanard; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: _displayStanard;"></tr>
+
+    </table>
+
+</div>
+
+<mat-paginator showFirstLastButtons [pageSizeOptions]="[5, 10, 20, 100]" [length]="length" [pageSize]="pageSize"
+    aria-label="Select page">
+</mat-paginator>

@@ -1,0 +1,139 @@
+<h1>Nuevo Trámite</h1>
+
+<mat-form-field appearance="fill" class="margin-search" style="width: 30em;"  (change)="lastNumber()">
+    <mat-label>Notarios</mat-label>
+    <mat-select [(ngModel)]='data.notario' > 
+        <mat-option>--</mat-option>
+
+        <mat-option *ngFor="let auxSelect of _notarios" [value]="auxSelect.value">
+            {{auxSelect.viewValue}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+
+<br>
+
+<mat-radio-group [(ngModel)]="data.area" (change)="lastNumber(); data.newNumber=''">
+    <mat-radio-button class="margin-search" style="margin-top: 2em;" value="Protocolo" [color]="_color" >
+        Protocolo</mat-radio-button>
+    <mat-radio-button class="margin-search" value="Expediente" [color]="_color">Expediente
+    </mat-radio-button>
+    <mat-radio-button class="margin-search" value="Poliza" [color]="_color">Póliza</mat-radio-button>
+</mat-radio-group>
+
+
+
+<br>
+
+<table style="width: 100%;">
+
+    <tr>
+
+        <td style="width: 30%;">
+
+            <div *ngIf="data.area=='Expediente'">
+                <br>
+                <h2>Expediente</h2>
+                <mat-radio-group [(ngModel)]="data.subArea" >
+                    <mat-radio-button class="margin-search" style="margin-top: 2em;" value="Protocolo" [color]="_color">
+                        de Protocolo</mat-radio-button>
+                    <br>
+                    <mat-radio-button class="margin-search" value="Poliza" [color]="_color">de Póliza
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+        </td>
+
+        <td style="width: 70%;">
+
+            <div *ngIf="(data.area=='Expediente' && data.subArea=='Poliza') || (data.area=='Poliza') ">
+                <br>
+                <h2>Libro Registro de Operaciones</h2>
+                <mat-radio-group [(ngModel)]="data.poliza"  (change)="lastNumber()">
+                    <mat-radio-button class="margin-search" style="margin-top: 2em;" value="A" [color]="_color">
+                        Sección A</mat-radio-button>
+                    <br>
+                    <mat-radio-button class="margin-search" value="B" [color]="_color">Sección B
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+        </td>
+
+    </tr>
+
+</table>
+
+<div *ngIf="data.area=='Protocolo'">
+    <h2></h2>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+
+<br>
+
+
+<mat-form-field style="margin-left: 1em;">
+    <mat-label>Fecha Inicial</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="data.fecha" (change)="lastNumber()"> <!--  [min]="minDate" [max]="maxDate" -->
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker color="primary"></mat-datepicker>
+</mat-form-field>
+
+<br>
+
+<table style="width: 100%;">
+
+    <tr>
+
+        <td style="width: 60%;">
+            <mat-form-field style="margin-left: 1em;">
+                <mat-label>Número</mat-label>
+                <input matInput [(ngModel)]="data.newNumber"  (keyup.enter)="transformProtocolo($event)" (blur)="transformProtocolo($event)"> <!--  [min]="minDate" [max]="maxDate" -->
+            </mat-form-field>
+
+        </td>
+
+        <td style="width: 30%;">
+            <mat-form-field appearance="fill" class="margin-search" style="width: 7em;" (change)="lastNumber()">
+                <mat-label>Bis</mat-label>
+                <mat-select [(ngModel)]='data.bis' > 
+                    <mat-option>--</mat-option>
+            
+                    <mat-option *ngFor="let auxSelect of _bis" [value]="auxSelect.value">
+                        {{auxSelect.viewValue}}
+                    </mat-option>
+                </mat-select>
+                
+            <button *ngIf="data.bis" matSuffix mat-icon-button aria-label="Delete" (click)="data.bis=''">
+                <mat-icon class="red-icon">close</mat-icon>
+            </button>
+            </mat-form-field>
+
+
+        </td>
+
+    </tr>
+</table>
+
+<br>
+
+<mat-form-field style="margin-left: 1em;">
+    <mat-label>Ultimo Número</mat-label>
+    <input matInput [ngModel]="_lastNumber" readonly>
+</mat-form-field>
+
+<br>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button [mat-dialog-close]="data" cdkFocusInitial color="primary">Aceptar</button>
+    <button mat-raised-button (click)="onCancel()" color="warn">Salir</button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

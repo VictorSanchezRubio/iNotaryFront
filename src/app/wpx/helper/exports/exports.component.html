@@ -1,0 +1,10 @@
+<button mat-button [matMenuTriggerFor]="menu" style="margin-left: 3em;">
+    <mat-icon> import_export</mat-icon>Export
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="exportOption('PDF')"><mat-icon svgIcon="pdf_file" aria-hidden="false"></mat-icon>PDF</button> <!--<mat-icon>picture_as_pdf</mat-icon>-->
+    <button mat-menu-item (click)="exportOption('XLSX')"><mat-icon svgIcon="xlsx_file" aria-hidden="false"></mat-icon>Excel [xlsx]</button>
+    <button mat-menu-item (click)="exportOption('CSV')"><mat-icon svgIcon="csv_file" aria-hidden="false"></mat-icon>CSV</button>
+    <button mat-menu-item (click)="exportOption('DOCX')"><mat-icon svgIcon="docx_file" aria-hidden="false"></mat-icon>Word [docx]</button>
+    <button mat-menu-item (click)="exportOption('ODT')"><mat-icon svgIcon="odt_file" aria-hidden="false"></mat-icon>ODT</button>
+</mat-menu>

@@ -1,0 +1,44 @@
+<h1>Conceptos</h1>
+
+<div style="width: 96%; height: 600px; overflow: auto;">
+
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filtro" #input ngModel>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="_searchStandard" class="mat-elevation-z8" style="width: 100%;">
+
+    <ng-container matColumnDef="indunico_CODIGO">
+      <th mat-header-cell *matHeaderCellDef>Código</th>
+      <td mat-cell *matCellDef="let element" class="action-link">
+        <button mat-raised-button color="primary" [mat-dialog-close]="element" cdkFocusInitial
+          color="primary">
+          {{element.indunico_CODIGO}}
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="indunico_DESCRIPCION">
+      <th mat-header-cell *matHeaderCellDef>Descripción</th>
+      <td style="margin-left: 3em;" *matCellDef="let element">
+
+        {{element.indunico_DESCRIPCION}}
+        
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="_displayStanard"></tr>
+    <tr mat-row *matRowDef="let row; columns: _displayStanard;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="2">No data matching the filter "{{input.value}}"</td>
+    </tr>
+
+  </table>
+
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="onCancel()" color="warn">Cancelar</button>
+</mat-dialog-actions>

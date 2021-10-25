@@ -1,1 +1,117 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.green-icon {
+    color: green;
+}
+
+.red-icon {
+    color: red;
+}
+
+.blue-icon {
+    color: blue;
+  }
+  
+.yellowgreen-icon {
+    color: yellowgreen;
+  }
+
+.blue-esp1-icon {
+  color: #2A66E6;
+}
+
+.ghostwhite-icon {
+  color:ghostwhite
+
+}
+
+
+.borderRadius {
+  border: 3px solid rgb(10, 3, 43);
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+}
+
+.tooltip-red {
+  background: #b71c1c;
+  font-size: 12px;
+  min-width: 300px;
+}
+
+.tooltip-blue {
+  background: #125be2;
+  font-size: 12px;
+  min-width: 300px;
+}
+
+.tooltip-multiline {
+  height: auto;
+}
+
+.allow-cr {
+  white-space: pre-line;
+  height: auto;
+ 
+}
+
+
+.error-snackbar {
+  color:red;
+  background-color: white;
+
+  border: 3px solid rgb(10, 3, 43);
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+
+}
+
+.error-snackbar-red {
+  background-color:red;
+  color: white;
+
+  border: 3px solid rgb(10, 3, 43);
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+
+}
+
+
+
+.ok-snackbar {
+  color:blanchedalmond;
+  
+}
+
+.mat-green {
+  background-color: green;
+  color: #fff;
+}
+
+
+.mat-blue {
+  background-color:  #0275d8;
+  color: #fff
+}
+
+
+
+.specialText {
+  /*
+  transform: translateY(-1.1em) scale(.90);
+  width: 133.33333%;
+  height: 20px;
+  */
+}
+
+
+.specialTextMunutacion {
+  transform: translateY(-1.1em) scale(.90);
+  width: 133.33333%;
+  height: 20px;
+}

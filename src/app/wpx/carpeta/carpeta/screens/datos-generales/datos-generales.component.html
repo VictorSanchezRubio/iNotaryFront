@@ -1,0 +1,310 @@
+<div style="width: 100%; margin-top: 0.5em;">
+
+    <mat-form-field style="margin-left: 0.5em; margin-top: 1em;">
+        <mat-label class="colorInput">Notario</mat-label>
+        <input matInput [(ngModel)]="dGenerales.NOMBRENOTARIO" readonly>
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 1em; width: 15%; margin-top: 1em;">
+        <mat-label class="colorInput" *ngIf="dGenerales.CODIGOPROTOCOLO.charAt(0)=='P'">Protocolo</mat-label>
+        <mat-label class="colorInput" *ngIf="dGenerales.CODIGOPROTOCOLO.charAt(0)=='E'">Expediente</mat-label>
+        <mat-label class="colorInput" *ngIf="dGenerales.CODIGOPROTOCOLO.charAt(0)=='C'">Póliza</mat-label>
+        <input matInput [(ngModel)]="dGenerales.CODIGOPROTOCOLO" readonly
+            *ngIf="dGenerales.CODIGOPROTOCOLO.charAt(0)!='C'">
+        <input matInput [(ngModel)]="dGenerales.LRO_NUMERO" readonly *ngIf="dGenerales.CODIGOPROTOCOLO.charAt(0)=='C'">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 1em; margin-top: 1em; width: 3em;"
+        *ngIf="dGenerales.CODIGOPROTOCOLO.charAt(0)=='C'">
+        <mat-label class="colorInput">Sección</mat-label>
+        <input matInput [(ngModel)]="dGenerales.LRO_SECCION" readonly>
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 1em; margin-top: 1em; width: 12em;">
+        <mat-label class="colorInput">Fecha</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="dGenerales.FECHAPROTOCOLO" (change)="changeValues()">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker color="primary"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 1em; margin-top: 1em;">
+        <mat-label class="colorInput">Lugar</mat-label>
+        <input matInput [(ngModel)]="dGenerales.LUGAR" (change)="changeValues()" (keypress)="changeValues()">
+    </mat-form-field>
+<!--
+    <mat-icon>library_add</mat-icon>
+-->
+</div>
+
+<div style="width: 100%;">
+
+    <mat-form-field appearance="fill" style="width: 14.5em; margin-left: 0.5em;">
+        <mat-label class="colorInput">Sustituto</mat-label>
+        <mat-select [(ngModel)]='_sustituto' (selectionChange)="changeValues()">
+            <mat-option [value]=" ">--</mat-option>
+
+            <mat-option *ngFor="let auxSelect of _sustitutos" [value]="auxSelect.value">
+                {{auxSelect.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill" style="width: 10.5em; margin-left: 0.5em;">
+        <mat-label class="colorInput">Turno</mat-label>
+        <mat-select [(ngModel)]='dGenerales.TURNO' (selectionChange)="changeValues()">
+            <mat-option [value]=" ">--</mat-option>
+
+            <mat-option *ngFor="let auxSelect of _turnos" [value]="auxSelect.value">
+                {{auxSelect.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 10.5em; margin-left: 0.5em;">
+        <mat-label class="colorInput">Idioma</mat-label>
+        <mat-select [(ngModel)]='dGenerales.protocolos_IDIOMA' (selectionChange)="changeValues()">
+            <mat-option [value]=" ">--</mat-option>
+
+            <mat-option *ngFor="let auxSelect of _idiomas" [value]="auxSelect.value">
+                {{auxSelect.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill" style="width: 10.5em; margin-left: 0.5em;">
+        <mat-label class="colorInput">Empleado</mat-label>
+        <mat-select [(ngModel)]='dGenerales.ENCARGADO' (selectionChange)="changeValues()">
+            <mat-option [value]=" ">--</mat-option>
+
+            <mat-option *ngFor="let auxSelect of _empleados" [value]="auxSelect.value">
+                {{auxSelect.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill" style="width: 10.5em; margin-left: 0.5em;">
+        <mat-label class="colorInput">Asesor</mat-label>
+        <mat-select [(ngModel)]='dGenerales.protocolos_ASESOR' (selectionChange)="changeValues()">
+            <mat-option [value]=" ">--</mat-option>
+
+            <mat-option *ngFor="let auxSelect of _asesores" [value]="auxSelect.value">
+                {{auxSelect.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-icon>library_add</mat-icon>
+
+</div>
+
+
+<div style="width: 100%;">
+
+    <mat-form-field style="margin-left: 0.5em; width: 7em;">
+        <mat-label class="colorInput">Folios</mat-label>
+        <input matInput [(ngModel)]="dGenerales.FOLIOS"
+            (change)="dGenerales.FOLIOSCOPIAS = dGenerales.FOLIOS; changeValues();"
+            (keypress)="dGenerales.FOLIOSCOPIAS = dGenerales.FOLIOS; changeValues();"
+            (blur)="dGenerales.FOLIOSCOPIAS = dGenerales.FOLIOS; changeValues();">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 0.5em; width: 7em;">
+        <mat-label class="colorInput">F. Copia</mat-label>
+        <input matInput [(ngModel)]="dGenerales.FOLIOSCOPIAS" (change)="changeValues()" (keypress)="changeValues()"
+            (blur)="changeValues()">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 0.5em; width: 7em;">
+        <mat-label class="colorInput">Caras Vacías</mat-label>
+        <input matInput [(ngModel)]="dGenerales.CARASVACIAS" (change)="changeValues()" (keypress)="changeValues()"
+            (blur)="changeValues()">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 0.5em; width: 7em;">
+        <mat-label class="colorInput">C. Autor.</mat-label>
+        <input matInput [(ngModel)]="dGenerales.COPIASAUTORIZADAS" (change)="changeValues()" (keypress)="changeValues()"
+            (blur)="changeValues()">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 0.5em; width: 7em;">
+        <mat-label class="colorInput">C. Simple</mat-label>
+        <input matInput [(ngModel)]="dGenerales.COPIASSIMPLES" (change)="changeValues()" (keypress)="changeValues()"
+            (blur)="changeValues()">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 0.5em; width: 7em;">
+        <mat-label class="colorInput">F. Telem.</mat-label>
+        <input matInput [(ngModel)]="dGenerales.protocolos_FOLIOSTELEMATICOS" (change)="changeValues()"
+            (keypress)="changeValues()" (blur)="changeValues()">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 0.5em; width: 7em;">
+        <mat-label class="colorInput">T. Auto.</mat-label>
+        <input matInput [(ngModel)]="dGenerales.protocolos_COPIASTELEMATICAS" (change)="changeValues()"
+            (keypress)="changeValues()" (blur)="changeValues()">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 0.5em; width: 6em;">
+        <mat-label class="colorInput">T. Simple</mat-label>
+        <input matInput [(ngModel)]="dGenerales.protocolos_COPIASTELEMATICASSIM" (change)="changeValues()"
+            (keypress)="changeValues()" (blur)="changeValues()">
+    </mat-form-field>
+
+
+</div>
+
+
+<div style="width: 100%;">
+
+    <mat-form-field style="margin-left: 0.5em; width: 10em;">
+        <mat-label class="colorInput">Legitimaciones</mat-label>
+        <input matInput [(ngModel)]="dGenerales.protocolos_LEGITIMACIONES" (change)="changeValues();"
+            (keypress)="changeValues()" (blur)="changeValues()">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 0.5em; width: 10em;">
+        <mat-label class="colorInput">Testimonios</mat-label>
+        <input matInput [(ngModel)]="dGenerales.protocolos_TESTIMONIOS" (change)="changeValues()"
+            (keypress)="changeValues()" (blur)="changeValues()">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 0.5em; width: 10em;">
+        <mat-label class="colorInput">Diligencias</mat-label>
+        <input matInput [(ngModel)]="dGenerales.protocolos_DILIGENCIAS" (change)="changeValues()"
+            (keypress)="changeValues()" (blur)="changeValues()">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 0.5em; width: 10em;">
+        <mat-label class="colorInput">Cédulas</mat-label>
+        <input matInput [(ngModel)]="dGenerales.protocolos_CEDULAS" (change)="changeValues()"
+            (keypress)="changeValues()" (blur)="changeValues()">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 0.5em; width: 16.50em;">
+        <mat-label class="colorInput">Num. Oper. Banco / N.Ref.</mat-label>
+        <input matInput [(ngModel)]="dGenerales.NUMEROOPERACION" (change)="changeValues()" (keypress)="changeValues()">
+    </mat-form-field>
+
+
+</div>
+
+
+<div style="width: 100%;">
+
+    <mat-checkbox [(ngModel)]="_firmaFuera" style="margin-left: 0.5em; width: 10em;" [color]="_color"
+        (change)="changeValues()">
+        <mat-label class="colorInput">Firmado Fuera</mat-label>
+    </mat-checkbox>
+
+    <mat-checkbox [(ngModel)]="_completo" style="margin-left: 0.5em; width: 10em;" [color]="_color"
+        (change)="changeValues()">
+        <mat-label class="colorInput">Completo</mat-label>
+    </mat-checkbox>
+
+    <mat-checkbox [(ngModel)]="_hayGestion" style="margin-left: 0.5em; width: 10em;" [color]="_color"
+        (change)="changeValues()">
+        <mat-label class="colorInput">Hay Gestion</mat-label>
+    </mat-checkbox>
+
+
+    <mat-form-field style="margin-left: 0.5em; width: 23em;">
+        <mat-label class="colorInput">Documento Word</mat-label>
+        <input matInput [(ngModel)]="dGenerales.DOCUMENTORELACIONADO" (change)="changeValues()"
+            (keypress)="changeValues()" readonly>
+    </mat-form-field>
+
+    <mat-icon>library_add</mat-icon>
+    <!--   <mat-icon>visibility</mat-icon> -->
+    <mat-icon>delete</mat-icon>
+
+
+</div>
+
+
+<div style="width: 100%;">
+
+
+
+    <mat-checkbox [(ngModel)]="_art174" style="margin-left: 0.5em; width: 10em;" [color]="_color"
+        (change)="changeValues()" *ngIf="dGenerales.CODIGOPROTOCOLO.charAt(0)!='C'">
+        <mat-label class="colorInput">Art. 17.4 OME 27/05/2001 [Inv. Extranjera]</mat-label>
+    </mat-checkbox>
+
+
+    <mat-form-field appearance="fill" style="width: 23em; margin-left: 21.5em;">
+        <mat-label class="colorInput">Otros Documentos</mat-label>
+        <mat-select [(ngModel)]='_otroDocumento'>
+            <mat-option [value]=" ">--</mat-option>
+            <mat-option *ngFor="let auxSelect of _otrosDocumentos" [value]="auxSelect.value">
+                {{auxSelect.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-icon>library_add</mat-icon>
+    <mat-icon>visibility</mat-icon>
+    <mat-icon>delete</mat-icon>
+
+</div>
+
+<div *ngIf="dGenerales.CODIGOPROTOCOLO.charAt(0)=='C'">
+
+
+    <mat-form-field style="margin-left: 0.5em; width: 7em;">
+        <mat-label class="colorInput">Num. Notarios</mat-label>
+        <input matInput [(ngModel)]="dGenerales.protocolos_NUMNOTARIOS" (change)="changeValues()"
+            (keypress)="changeValues()">
+    </mat-form-field>
+
+    <mat-checkbox [(ngModel)]="_parcial" style="margin-left: 0.5em; width: 7em;" [color]="_color"
+        (change)="changeValues()">
+        <mat-label class="colorInput">Parcial</mat-label>
+    </mat-checkbox>
+
+    <mat-checkbox [(ngModel)]="_pignoracion" style="margin-left: 0.5em; width: 7em;" [color]="_color"
+        (change)="changeValues()">
+        <mat-label class="colorInput">Pignoración</mat-label>
+    </mat-checkbox>
+
+
+    <mat-form-field style="margin-left: 1em; margin-top: 1em; width: 12em;">
+        <mat-label class="colorInput">Fecha</mat-label>
+        <input matInput [matDatepicker]="pickerVto" [(ngModel)]="dGenerales.protocolos_FVENCIMIENTO"
+            (change)="changeValues()">
+        <mat-datepicker-toggle matSuffix [for]="pickerVto"></mat-datepicker-toggle>
+        <mat-datepicker #pickerVto color="primary"></mat-datepicker>
+    </mat-form-field>
+
+
+
+</div>
+
+<div style="width: 100%">
+
+    <div style="width: 50%; float: left;">
+        <mat-label class="colorInput">Facturas</mat-label>
+    </div>
+
+    <div style="width: 50%; float: right;">
+        <mat-form-field style="margin-left: -1em; width: 95%;">
+            <mat-label class="colorInput">Observaciones</mat-label>
+            <textarea matInput style="width: 30em; height: 7em;" [(ngModel)]="dGenerales.OBSERVACIONES"
+                (change)="changeValues()" (keypress)="changeValues()"></textarea>
+        </mat-form-field>
+
+    </div>
+
+
+
+</div>
+
+
+
+
+<!--
+<p>datos-generales works!</p>
+<h1>{{dGenerales.CODIGOPROTOCOLO}}</h1>
+-->

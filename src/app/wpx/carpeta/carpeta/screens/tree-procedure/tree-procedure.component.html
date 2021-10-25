@@ -1,0 +1,49 @@
+<cdk-accordion class="conceptos-accordion" style="margin-left: 0.5em; margin-top: 0.5em;">
+
+    <cdk-accordion-item *ngFor="let item of conceptos; last as lasty;" [expanded]="lasty"
+        #accordionItem="cdkAccordionItem" class="conceptos-accordion-item" role="button" tabindex="0"
+        [attr.id]="'accordion-header-' + item.id" [attr.aria-expanded]="accordionItem.expanded"
+        [attr.aria-controls]="'accordion-body-' + item.id">
+
+        <div class="conceptos-accordion-item-header">
+            <mat-label (click)="accordionItem.toggle();treeSelectedConcept($event, item);"  
+                        (dblclick)="openCahngeLabel($event, item)" 
+                        style="width: 700px;">
+                {{ item.idConcepto }} - {{item.descripcion}}
+            </mat-label>
+
+            <mat-icon class="red-icon" 
+                        style="padding-left: 100px;" 
+                        (click)="deleteSelectedConcept($event, item)" 
+                        matTooltip="Borrar Concepto."   
+                        matTooltipClass="tooltip-blue allow-cr">
+                        delete
+            </mat-icon>
+
+            <span class="conceptos-accordion-item-description">
+                <!--     Click to {{ accordionItem.expanded ? 'close' : 'open' }} -->
+            </span>
+        </div>
+
+
+        <div class="conceptos-accordion-item-body" role="region" [style.display]="accordionItem.expanded ? '' : 'none'"
+            [attr.id]="'accordion-body-' + item.id" [attr.aria-labelledby]="'accordion-header-' + item.id">
+
+            <div *ngIf="item.fieldConcepto.CUANTIAS!=0" [attr.id]="'CUANTIAS-accordion-body-' + item.id">
+
+            </div>
+
+            <div *ngIf="item.fieldConcepto.conceptos_TIENEFINCAS!=1"
+                [attr.id]="'conceptos_TIENEFINCAS-accordion-body-' + item.id">
+            </div>
+
+            <div *ngIf="item.fieldConcepto.conceptos_TIENEFINCAS!=1 || item.fieldConcepto.CUANTIAS==0"
+                [attr.id]="'conceptos_TIENEFINCAS-accordion-body-' + item.id">
+                    <app-clases-compareciencia [item]="item"></app-clases-compareciencia>
+            </div>
+
+        </div>
+
+    </cdk-accordion-item>
+
+</cdk-accordion>

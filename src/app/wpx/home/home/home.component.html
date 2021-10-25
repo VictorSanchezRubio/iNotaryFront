@@ -1,0 +1,30 @@
+<mat-sidenav-container color="blue">
+    <app-header (messageEvent)="reciveFromHome($event)"></app-header>
+
+    <main>
+
+
+        <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
+            <mat-tab *ngFor="let link of navLinks; let index = index;">
+
+                <ng-template mat-tab-label>
+                    {{link.label}}
+
+                    <span class="tab-close" (click)="closeTab(link.id)">
+                        <mat-icon class="red-icon">close</mat-icon>
+                    </span>
+                </ng-template>
+                <div id="{{link.id}}">
+
+                    <app-search *ngIf="link.app=='app-search'" (protocoloEvent)="reciveNumProtocolo($event)"></app-search>
+                    <app-fueraprotocolo *ngIf="link.app=='app-fueraprotocolo'"></app-fueraprotocolo>
+                    <app-carpeta *ngIf="link.app=='app-carpeta'" [protocolo]="link.tramite"></app-carpeta>
+                    <app-calendar *ngIf="link.app=='app-calendar'"></app-calendar>
+                    <app-dashboard *ngIf="link.app=='app-dashboard'"></app-dashboard>
+                    <app-reports  *ngIf="link.app=='app-reports'"></app-reports>
+                    <app-fichacontable  *ngIf="link.app=='app-fichacontable'" [protocolo]="link.tramite"></app-fichacontable>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </main>
+</mat-sidenav-container>

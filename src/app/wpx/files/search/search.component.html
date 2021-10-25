@@ -1,0 +1,522 @@
+<div style="width: 98%; margin-top: 1em; margin-left: 1em;">
+
+    <div class="column45 borderRadius" style="float: left; margin-bottom: 1em;">
+
+        <p>
+            <mat-radio-group [(ngModel)]="area">
+                <mat-radio-button class="margin-search" style="margin-top: 2em;" value="Protocolo" [color]="_color">
+                    Protocolo</mat-radio-button>
+                <mat-radio-button class="margin-search" value="Comparecientes" [color]="_color">Comparecientes
+                </mat-radio-button>
+                <mat-radio-button class="margin-search" value="Fincas" [color]="_color">Fincas</mat-radio-button>
+            </mat-radio-group>
+
+            <button mat-raised-button (click)="search()" style="margin-left: 5em;">
+                <mat-icon class="blue-esp1-icon">search</mat-icon>
+            </button>
+           
+            <app-exports [screen]="screen" [dades]="dadesExport" [filter]="filter"></app-exports>
+           
+        </p>
+
+        <p>
+            <mat-form-field appearance="fill" class="margin-search">
+                <mat-label>Notarios</mat-label>
+                <mat-select [(ngModel)]='_notario'>
+                    <mat-option>--</mat-option>
+
+                    <mat-option *ngFor="let auxSelect of _notarios" [value]="auxSelect.value">
+                        {{auxSelect.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field style="margin-left: 3em;">
+                <mat-label>Fecha Inicial</mat-label>
+                <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" [(ngModel)]="_fechaI">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker color="primary"></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field style="margin-left: 3em;">
+                <mat-label>Fecha Final</mat-label>
+                <input matInput [matDatepicker]="picker2" [min]="_fechaI" [max]="maxDate" [(ngModel)]="_fechaF"
+                    [ngModelOptions]="{standalone: true}">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2 color="primary"></mat-datepicker>
+            </mat-form-field>
+
+        </p>
+
+        <p>
+            <mat-checkbox [(ngModel)]="_sinFecha" class="margin-search" [color]="_color">
+                <mat-label>Sin Fecha</mat-label>
+            </mat-checkbox>
+
+            <mat-checkbox [(ngModel)]="_protocolos" class="margin-search" [color]="_color">
+                <mat-label>Protocolos</mat-label>
+            </mat-checkbox>
+
+            <mat-checkbox [(ngModel)]="_expedientes" class="margin-search" [color]="_color">
+                <mat-label>Expedientes</mat-label>
+            </mat-checkbox>
+
+            <mat-checkbox [(ngModel)]="_polizas" class="margin-search" [color]="_color">
+                <mat-label>Pólizas</mat-label>
+            </mat-checkbox>
+
+            <mat-checkbox [(ngModel)]="_completo" class="margin-search" [color]="_color">
+                <mat-label>Completo</mat-label>
+            </mat-checkbox>
+
+        </p>
+
+    </div>
+
+    <div class="column50 borderRadius margin-search" *ngIf="area=='Protocolo'" style="float:right;">
+
+        <p>
+            <mat-form-field appearance="fill" style="margin-top: 2em; margin-left: 1em;">
+                <mat-label style="margin-left: 3em; margin-top: 2em;">Protocolo</mat-label>
+                <input matInput type="text" [(ngModel)]="_numProtocolo" (keyup.enter)="transformProtocolo($event)" (blur)="transformProtocolo($event)">
+                <button *ngIf="_numProtocolo" matSuffix mat-icon-button aria-label="Delete" (click)="_numProtocolo=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill" class="margin-search">
+                <mat-label>Sección</mat-label>
+                <mat-select [(ngModel)]='_seccion'>
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let auxSelect of _secciones" [value]="auxSelect.value">
+                        {{auxSelect.viewValue}}
+                    </mat-option>
+                </mat-select>
+                <button *ngIf="_seccion" matSuffix mat-icon-button aria-label="Delete" (click)="_seccion=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill" class="margin-search">
+                <mat-label style="margin-left: 3em; margin-top: 2em;">Num. LRO</mat-label>
+                <input matInput type="text" [(ngModel)]="_numLRO" (keyup.enter)="transformPoliza($event)" (blur)="transformPoliza($event)">
+                <button *ngIf="_numLRO" matSuffix mat-icon-button aria-label="Delete" (click)="_numLRO=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field class="example-form-field" appearance="fill" style="margin-top: 0.5em; margin-left: 1em;">
+                <mat-label style="margin-left: 3em; margin-top: 2em;">Num. Referencia</mat-label>
+                <input matInput type="text" [(ngModel)]="_numRef">
+                <button *ngIf="_numRef" matSuffix mat-icon-button aria-label="Delete" (click)="_numRef=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+            </mat-form-field>
+
+
+        </p>
+
+        <p>
+
+            <mat-form-field appearance="fill" class="margin-search full-width">
+                <mat-label>Acto</mat-label>
+
+                <input type="text" matInput [formControl]="myControl" [matAutocomplete]="acto" [(ngModel)]="_acto">
+
+                <button *ngIf="_acto" matSuffix mat-icon-button aria-label="Delete" (click)="_acto=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+
+                <mat-autocomplete #acto="matAutocomplete" [displayWith]="displayFn">
+
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let auxSelect of filteredOptions | async" [value]="auxSelect">
+                        {{auxSelect.viewValue}}
+                    </mat-option>
+
+                </mat-autocomplete>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill" class="margin-search full-width-esp">
+
+                <mat-label>Encargado</mat-label>
+                <input type="text" matInput [formControl]="myControlEncargados" [matAutocomplete]="autoEncargado"
+                    [(ngModel)]="_encargado">
+                <button *ngIf="_encargado" matSuffix mat-icon-button aria-label="Delete" (click)="_encargado=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+
+                <mat-autocomplete #autoEncargado="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let auxSelect of filteredOptionsEncargados | async" [value]="auxSelect">
+                        {{auxSelect.viewValue}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill" class="margin-search full-width-esp">
+                <mat-label>Asesor</mat-label>
+
+                <input type="text" matInput [formControl]="myControlAsesores" [matAutocomplete]="autoAsesor"
+                    [(ngModel)]="_asesor">
+
+                <button *ngIf="_asesor" matSuffix mat-icon-button aria-label="Delete" (click)="_asesor=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+
+                <mat-autocomplete #autoAsesor="matAutocomplete" [displayWith]="displayFn">
+
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let auxSelect of filteredOptionsAsesores | async" [value]="auxSelect">
+                        {{auxSelect.viewValue}}
+                    </mat-option>
+
+                </mat-autocomplete>
+
+            </mat-form-field>
+
+        </p>
+
+
+    </div>
+
+    <div class="column50 borderRadius margin-search" *ngIf="area=='Comparecientes'" style="float:right;">
+        <p>
+        <mat-form-field appearance="fill" class="margin-search full-width" style="margin-top: 2em;">
+
+            <mat-label style="margin-left: 3em; margin-top: 2em;">NIF / Nombre / Razón Social</mat-label>
+            <input matInput type="text" [(ngModel)]="_nifC"
+            matTooltip="{{_toolTipNIF | tooltipDivide:';':'':''}}"
+    matTooltipClass="tooltip-blue allow-cr">
+            <button *ngIf="_nifC" matSuffix mat-icon-button aria-label="Delete" (click)="_nifC=''">
+                <mat-icon class="red-icon">close</mat-icon>
+            </button>
+
+
+    
+          <!--
+            <mat-label>NIF / Nombre / Razón Social</mat-label>
+
+            <input type="text" matInput [formControl]="myControlNIF" [matAutocomplete]="autoNIF"
+                [(ngModel)]="_nifC">
+
+            <button *ngIf="_nifC" matSuffix mat-icon-button aria-label="Delete"
+                (click)="_nifC=''">
+                <mat-icon class="red-icon">close</mat-icon>
+            </button>
+
+            <mat-autocomplete #autoNIF="matAutocomplete" [displayWith]="displayFn">
+
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let auxSelect of filteredOptionsNIF | async" [value]="auxSelect">
+                    {{auxSelect.viewValue}}
+                </mat-option>
+
+            </mat-autocomplete>
+-->
+        </mat-form-field>
+
+        <button mat-raised-button (click)="searchSujeto()" style="margin-left: 0.5em; margin-top: -2em;">
+            <mat-icon class="blue-esp1-icon">search</mat-icon>
+          </button>
+
+
+          
+        <mat-form-field appearance="fill" class="margin-search full-width" style="margin-top: 2em;">
+            <mat-label>Concepto de Intervención</mat-label>
+
+            <input type="text" matInput [formControl]="myControlCINT" [matAutocomplete]="autoCInt"
+                [(ngModel)]="_cIntC">
+
+            <button *ngIf="_cIntC" matSuffix mat-icon-button aria-label="Delete"
+                (click)="_cIntC=''">
+                <mat-icon class="red-icon">close</mat-icon>
+            </button>
+
+            <mat-autocomplete #autoCInt="matAutocomplete" [displayWith]="displayFn">
+
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let auxSelect of filteredOptionscInt | async" [value]="auxSelect">
+                    {{auxSelect.viewValue}}
+                </mat-option>
+
+            </mat-autocomplete>
+
+        </mat-form-field>
+
+    </p>
+
+    <p>
+
+        <mat-checkbox [(ngModel)]="_soloPagadores" class="margin-search" [color]="_color" (change)="soloPagadores()">
+            <mat-label>Sólo Pagadores</mat-label>
+        </mat-checkbox>
+    
+
+
+    </p>
+
+        
+    </div>
+
+    <div class="column50 borderRadius margin-search" *ngIf="area=='Fincas'" style="float:right;">
+        <p>
+            <mat-form-field appearance="fill" class="margin-search full-width" style="margin-top: 2em;">
+                <mat-label>Reg. Propiedad</mat-label>
+
+                <input type="text" matInput [formControl]="myControlRegPropiedad" [matAutocomplete]="autoRegistro"
+                    [(ngModel)]="_registroPropiedad">
+
+                <button *ngIf="_registroPropiedad" matSuffix mat-icon-button aria-label="Delete"
+                    (click)="_registroPropiedad=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+
+                <mat-autocomplete #autoRegistro="matAutocomplete" [displayWith]="displayFn">
+
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let auxSelect of filteredOptionsRegPropiedad | async" [value]="auxSelect">
+                        {{auxSelect.viewValue}}
+                    </mat-option>
+
+                </mat-autocomplete>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill" class="margin-search full-width-esp">
+                <mat-label style="margin-left: 3em; margin-top: 2em;">Ref. Catastral</mat-label>
+                <input matInput type="text" [(ngModel)]="_refCatastral">
+                <button *ngIf="_refCatastral" matSuffix mat-icon-button aria-label="Delete" (click)="_refCatastral=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field class="margin-search full-width-esp" appearance="fill">
+                <mat-label style="margin-left: 3em; margin-top: 2em;">Num. Finca</mat-label>
+                <input matInput type="text" [(ngModel)]="_numFinca">
+                <button *ngIf="_numFinca" matSuffix mat-icon-button aria-label="Delete" (click)="_numFinca=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+            </mat-form-field>
+
+        </p>
+
+
+        <p>
+
+            <mat-form-field appearance="fill" class="margin-search  full-width-esp">
+                <mat-label style="margin-left: 3em; margin-top: 2em;">Provincia</mat-label>
+                <input matInput type="text" [(ngModel)]="_provincia">
+                <button *ngIf="_provincia" matSuffix mat-icon-button aria-label="Delete" (click)="_provincia=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field class="margin-search  full-width-esp" appearance="fill" >
+                <mat-label style="margin-left: 3em; margin-top: 2em;">Población</mat-label>
+                <input matInput type="text" [(ngModel)]="_poblacion">
+                <button *ngIf="_poblacion" matSuffix mat-icon-button aria-label="Delete" (click)="_poblacion=''">
+                    <mat-icon class="red-icon">close</mat-icon>
+                </button>
+            </mat-form-field>
+
+
+        </p>
+
+
+
+
+    </div>
+
+</div>
+
+<!--
+<button (click)="NewProtocolo()">Nuevo Protocolo</button>
+-->
+
+<div style="clear: both;"></div>
+
+<div *ngIf="_searchStandard && totalCon != 0"
+    style="width: 95%; margin-top: 0em; margin-left: 1em; float: none; clear: both; height: 540px; overflow: auto;">
+
+    <table mat-table [dataSource]="_searchStandard" matSort class="mat-elevation-z8" style="width: 100%;" #sort="matSort">
+
+        <ng-container matColumnDef="CODIGOPROTOCOLO">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Trámite</th>
+            <td mat-cell *matCellDef="let element" class="action-link">
+
+
+                <button mat-raised-button color="primary" (click)="openProtocolo(element)" *ngIf="element.CODIGOPROTOCOLO.charAt(0)=='P'">                   
+                        {{element.CODIGOPROTOCOLO}}    
+                </button>
+                <button mat-raised-button color="green" (click)="openProtocolo(element)" *ngIf="element.CODIGOPROTOCOLO.charAt(0)=='E'">                   
+                    {{element.CODIGOPROTOCOLO}}    
+            </button>
+
+                <button mat-raised-button color="warn" (click)="openProtocolo(element)" *ngIf="element.CODIGOPROTOCOLO.charAt(0)=='C'">                   
+                    {{element.LRO}}    
+            </button>
+
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="FECHAPROTOCOLO">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.FECHAPROTOCOLO | date:"dd/MM/yyyy"}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="LRO">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>LRO</th>
+            <td mat-cell *matCellDef="let element"> {{element.LRO}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ENCARGADO">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Encargado</th>
+            <td mat-cell *matCellDef="let element"> {{element.ENCARGADO}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="DESCRIPCION">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Conceptos</th>
+            <td mat-cell *matCellDef="let element" matTooltip="{{element.DESCRIPCION | tooltipDivide}}"
+                matTooltipClass="tooltip-blue allow-cr"> {{element.DESCRIPCION | truncateString:40}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ASESOR">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Asesor</th>
+            <td mat-cell *matCellDef="let element">{{element.ASESOR}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="REFERENCIA">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Referencia</th>
+            <td mat-cell *matCellDef="let element">{{element.REFERENCIA}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="DOCUMENTO">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Documento</th>
+            <td mat-cell *matCellDef="let element"
+                matTooltip="{{element.DOCUMENTO | tooltipDivide:';':'DOC':'Num. Documentos: '}}"
+                matTooltipClass="tooltip-blue allow-cr">
+                {{element.DOCUMENTO | truncateString:40}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="FC">
+            <th mat-header-cell *matHeaderCellDef>F.C.</th>
+            <td mat-cell *matCellDef="let element" class="action-link">
+                <button mat-raised-button color="primary" (click)="openFichaContable(element)">
+                    
+                    F.C.
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="_displayStanard; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: _displayStanard;"></tr>
+
+    </table>
+
+</div>
+
+<div *ngIf="_searchStandardC && totalCom != 0"
+        style="width: 95%; margin-top: 0em; margin-left: 1em; float: none; clear: both; height: 540px; overflow: auto;">
+
+
+        <table mat-table [dataSource]="_searchStandardC" matSort class="mat-elevation-z8" style="width: 100%;" #sortC="matSort">
+
+            <ng-container matColumnDef="CODIGOPROTOCOLO">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Trámite</th>
+                <td mat-cell *matCellDef="let element" class="action-link">
+
+                    <button mat-raised-button color="primary" (click)="openProtocolo(element)" *ngIf="element.CODIGOPROTOCOLO.charAt(0)=='P'">                   
+                        {{element.CODIGOPROTOCOLO}}    
+                </button>
+                <button mat-raised-button color="green" (click)="openProtocolo(element)" *ngIf="element.CODIGOPROTOCOLO.charAt(0)=='E'">                   
+                    {{element.CODIGOPROTOCOLO}}    
+            </button>
+
+                <button mat-raised-button color="warn" (click)="openProtocolo(element)" *ngIf="element.CODIGOPROTOCOLO.charAt(0)=='C'">                   
+                    {{element.LRO}}    
+            </button>
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="FECHAPROTOCOLO">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.FECHAPROTOCOLO | date:"dd/MM/yyyy"}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="LRO">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>LRO</th>
+                <td mat-cell *matCellDef="let element"> {{element.LRO}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="DNI">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>CIF / NIF</th>
+                <td mat-cell *matCellDef="let element"> {{element.DNI}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="NOMBRE">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre / Razón Social</th>
+                <td mat-cell *matCellDef="let element" matTooltip="{{element.NOMBRE}}" 
+                        matTooltipClass="tooltip-blue allow-cr"> {{element.NOMBRE | truncateString:20}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="DESCRIPCION">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Conceptos</th>
+                <td mat-cell *matCellDef="let element" matTooltip="{{element.DESCRIPCION | tooltipDivide}}"
+                    matTooltipClass="tooltip-blue allow-cr"> {{element.DESCRIPCION | truncateString:40}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="CI">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Concepto Int.</th>
+                <td mat-cell *matCellDef="let element" matTooltip="{{element.CI | tooltipDivide:',':'Con. Int:':'Num. Inter: '}}"
+                    matTooltipClass="tooltip-blue allow-cr"> {{element.CI | truncateString:10}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="REFERENCIA">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Referencia</th>
+                <td mat-cell *matCellDef="let element">{{element.REFERENCIA}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="DOCUMENTO">
+                <th mat-header-cell *matHeaderCellDef>Documento</th>
+                <td mat-cell *matCellDef="let element"
+                    matTooltip="{{element.DOCUMENTO | tooltipDivide:';':'DOC':'Num. Documentos: '}}"
+                    matTooltipClass="tooltip-blue allow-cr">
+                    {{element.DOCUMENTO | truncateString:40}}
+                </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="FC">
+                <th mat-header-cell *matHeaderCellDef>F.C.</th>
+                <td mat-cell *matCellDef="let element" class="action-link">
+                    <button mat-raised-button color="primary"
+                    (click)="openFichaContable(element)">
+                        
+                        F.C.
+                    </button>
+                </td>
+            </ng-container>
+    
+
+            <tr mat-header-row *matHeaderRowDef="_displayStanardC; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: _displayStanardC;"></tr>
+
+        </table>
+
+</div>
+
+<mat-paginator showFirstLastButtons [pageSizeOptions]="[5, 10, 20, 100]" [length]="length" [pageSize]="pageSize"
+    aria-label="Select page">
+</mat-paginator>

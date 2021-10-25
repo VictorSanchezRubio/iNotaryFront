@@ -1,0 +1,14 @@
+<h1>Cambio de Texto</h1>
+<h2>{{data.textOld}}</h2>
+<mat-dialog-content>
+<mat-form-field style="margin-left: 3em;">
+    <mat-label>Nuevo Texto</mat-label>
+    <input matInput [(ngModel)]="data.text"> 
+</mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button [mat-dialog-close]="data" cdkFocusInitial color="primary">Aceptar</button>
+    <button mat-raised-button (click)="onCancel()" color="warn">Salir</button>
+     <!--<button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>-->
+</mat-dialog-actions>

@@ -1,0 +1,97 @@
+<mat-toolbar color="blue">
+    <div fxHide.gt-xs>
+        <button mat-button mat-icon-button>
+            <!--  (click)="onToggleSidenav()"-->
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+
+    <button mat-button [matMenuTriggerFor]="files">Archivo</button>
+    <mat-menu #files="matMenu">
+        <button mat-menu-item (click)="openNewProtocolo()">
+            <mat-icon class="blue-esp1-icon">open_in_new</mat-icon>
+            Nuevo</button>
+        <button mat-menu-item (click)="newTab('search', 'Buscar','home', 'SearchComponent','app-search')"
+            routeLinkActive="active">
+            <mat-icon class="blue-esp1-icon">search</mat-icon>
+            
+            Buscar</button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="invoices">Facturas</button>
+    <mat-menu #invoices="matMenu">
+        <button mat-menu-item
+            (click)="newTab('fueraprotocolo','Fuera Protocolo','home','FueraprotocoloComponent','app-fueraprotocolo')"
+            routeLinkActive="active">Fuera Protocolo</button>
+        <button mat-menu-item>Cobrar Facturas</button>
+        <button mat-menu-item>Presupuesto / Tantea</button>
+     <!--   <button mat-menu-item>Remesas</button> -->
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="partes">Partes</button>
+    <mat-menu #partes="matMenu">
+        <button mat-menu-item>Partes de Testamento</button>
+        <button mat-menu-item>Declaración de Herederos</button>
+        <button mat-menu-item>Revocación de Poderes</button>
+        <button mat-menu-item>Parte de Tutelas</button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="polizas">Pólizas</button>
+    <mat-menu #polizas="matMenu">
+        <button mat-menu-item>Listado por Bancos</button>
+        <button mat-menu-item>Listado de Registro Pólizas</button>
+        <button mat-menu-item>Poner Fecha de Firma / Notario</button>
+        <button mat-menu-item>Asentar / Desasentar</button>
+
+        <button mat-menu-item>Relacion Pólizas con LRO</button>
+        <button mat-menu-item>Listado de Pignoradas</button>
+        <button mat-menu-item>Control de Intervención / Registro</button>
+        <button mat-menu-item>Remesas</button>
+
+    </mat-menu>
+
+
+
+    <button mat-button [matMenuTriggerFor]="contabilidad">Contabilidad</button>
+    <mat-menu #contabilidad="matMenu">
+        <button mat-menu-item
+        (click)="newTab('fichacontable','Ficha Contable','home','FichacontableComponent','app-fichacontable')"
+        routeLinkActive="active">Ficha Contable</button>
+
+
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="calendario">Agenda</button>
+    <mat-menu #calendario="matMenu">
+        <button mat-menu-item
+            (click)="newTab('agenda','Agenda','home','CalendarComponent','app-calendar')"
+            routeLinkActive="active">Agenda</button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="clients">Area Clientes</button>
+    <mat-menu #clients="matMenu">
+        <button mat-menu-item
+        (click)="newTab('dashboard','Dashboard','home','DashboardComponent','app-dashboard')"
+        routeLinkActive="active" *ngIf="_typeUser=='N'">Dashboard</button>
+
+        <button mat-menu-item
+        (click)="newTab('reports','Reports','home','ReportsComponent','app-reports')"
+        routeLinkActive="active" *ngIf="_typeUser=='N'">Reports</button>
+
+
+
+    </mat-menu>
+
+
+
+
+
+
+
+    <div (click)="logOut()" style="margin-left: auto;">
+        <span>{{_user}}</span>
+        <mat-icon class="ghostwhite-icon example-icon" aria-hidden="false" aria-label="logOut">exit_to_app
+        </mat-icon>
+    </div>
+
+</mat-toolbar>

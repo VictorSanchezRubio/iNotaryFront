@@ -1,0 +1,93 @@
+<!--
+<p>carpeta works!</p>
+<h1>{{protocolo}}</h1>
+-->
+<div class="divButtons borderRadius">
+
+    <button mat-button (click)="save()">
+        <mat-icon svgIcon="save" aria-hidden="false"></mat-icon>Save
+    </button>
+
+    <button mat-button (click)="_wordIsOpend=!_wordIsOpend">
+        Word to Carpeta
+    </button>
+
+</div>
+
+<div class="divPrincipalScreen borderRadius" cdkDropListGroup>
+
+    <div class="divSubScreen borderRadius" *ngIf="_wordIsOpend">
+        <app-word></app-word>
+
+    </div>
+
+
+    <div class="divSubScreen borderRadius" *ngIf="!_wordIsOpend">
+        <app-tree-procedure [conceptos]="_conceptos"
+        (treeConcepto)="treeConceptoSeleccionado($event)"
+        (deleteConcepto)="deleteConceptoSeleccionado($event)"></app-tree-procedure>
+    </div>
+
+    <div class="divSubScreen borderRadius">
+
+        <mat-tab-group dynamicHeight [backgroundColor]="_background">
+            
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon svgIcon="dg" aria-hidden="false"></mat-icon>
+                    Datos Generales
+                </ng-template>
+                <div class="large-box mat-elevation-z4">
+                    <app-datos-generales [dGenerales]="_dGenerales" (updateDG)="updateDGformComponent($event)"
+                        (errorDG)="errorLoadaFields($event)">
+                    </app-datos-generales>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Actos">
+                <div class="large-box-esp mat-elevation-z4">
+                    <app-actos 
+                            [suplidos]="_suplidos"
+                            [dGenerales]="_dGenerales" 
+                            [conceptosAll]="_conceptos"
+                            (errorDG)="errorLoadaFields($event)" 
+                            (addConcepto)="addConceptoSelect($event)"
+                            [idConcepto] = "_idConceptoSeleccion"
+                           >
+                    </app-actos>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Comparecientes">
+                <div class="large-box mat-elevation-z4">
+                    <app-comparecientes
+                            [comparecientes]="_comparecientes"></app-comparecientes>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Fincas / Objetos">
+                <div class="large-box mat-elevation-z4">
+                  
+                    Large content
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Seguimiento">
+                <div class="large-box mat-elevation-z4">
+                    Large content
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Signo">
+                <div class="large-box mat-elevation-z4">
+                   <app-signo-procedure></app-signo-procedure>
+                </div>
+            </mat-tab>
+
+
+
+        </mat-tab-group>
+
+    </div>
+
+</div>

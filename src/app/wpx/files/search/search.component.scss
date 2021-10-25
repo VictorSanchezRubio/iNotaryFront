@@ -1,0 +1,161 @@
+.margin-search {
+    margin: 0 10px;
+  }
+  
+
+  .column50 {
+      width: 50%;
+  }
+
+
+  .column40 {
+    width: 40%;
+}
+
+.column45 {
+    width: 45%;
+}
+
+
+.column20 {
+    width: 20%;
+}
+
+.column30 {
+    width: 30%;
+}
+
+
+.column60 {
+    width: 60%;
+}
+
+.column70 {
+    width: 70%;
+}
+
+
+.column10 {
+    width: 10%;
+}
+
+
+th.mat-sort-header-sorted {
+    color: black;
+  }
+
+
+  .mat-column-number,
+.mat-column-state {
+  max-width: 64px;
+}
+
+.mat-column-created {
+  max-width: 124px;
+}
+
+
+
+.mat-column-FECHAPROTOCOLO {
+    width: 8%;
+    padding-left: 2em;
+}
+
+.mat-column-LRO {
+    width: 6%;
+    padding-left: 2em;
+}
+
+.mat-column-ENCARGADO {
+    width: 10%;
+    padding-left: 2em;
+}
+
+.mat-column-DESCRIPCION {
+    width: 20%;
+    padding-left: 2em;
+}
+
+
+.mat-column-ASESOR {
+    width: 8%;
+    padding-left: 2em;
+}
+
+
+.mat-column-DOCUMENTO {
+    width: 20%;
+    padding-left: 2em;
+}
+
+
+.mat-column-REFERENCIA {
+    width: 8%;
+    padding-left: 2em;
+}
+
+
+.mat-column-FC {
+    width: 8%;
+    padding-left: 2em;
+}
+
+.mat-column-DNI {
+    width: 5%;
+    padding-left: 2em;
+}
+
+.mat-column-NOMBRE {
+    width: 10%;
+    padding-left: 2em;
+}
+
+.mat-column-CI {
+    width: 5%;
+    padding-left: 2em;
+}
+
+
+.mat-row:hover .mat-cell {
+    border-color: currentColor;
+  }
+
+ mat-paginator {
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 56px;
+    padding: 0 8px;
+    flex-wrap: wrap-reverse;
+    width: 100%;
+
+  }
+
+
+  .example-form-field {
+    width: 200px;
+  }
+
+
+
+
+  .full-width {
+    width: 40%;
+  }
+
+  .full-width-esp {
+    width: 24%;
+  }
+/*
+  .mat-success {
+    background-color: green;
+    color: #fff;
+}
+*/
+/*
+.mat-green {
+    background-color: green;
+    color: #fff;
+}
+*/
